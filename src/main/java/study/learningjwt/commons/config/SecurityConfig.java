@@ -1,0 +1,20 @@
+package study.learningjwt.commons.config;
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@EnableWebSecurity // 기본적인 웹 보안 활성화
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/h2-console/**", "/favicon.ico");
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().antMatchers("/api/test").permitAll().anyRequest().authenticated();
+  }
+}
